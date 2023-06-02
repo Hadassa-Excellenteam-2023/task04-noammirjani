@@ -97,7 +97,7 @@ const SearchData CitiesHandler::findCities(const std::string &cityName, double r
     CityLocation currCity = m_dataKeyName.find(cityName)->second;
     auto distanceMap = searchCities(currCity, radius, norm);
 
-    return { distanceMap, distanceMap.size(), getNorthCitiesAmount(distanceMap, currCity.y) };
+    return { distanceMap, distanceMap.size(), getNorthCitiesAmount(distanceMap, currCity.x) };
 }
 
 /**
@@ -107,11 +107,11 @@ const SearchData CitiesHandler::findCities(const std::string &cityName, double r
  * @param currY The y-coordinate of the specified city.
  * @return The number of cities located to the north of the specified city.
  */
-size_t CitiesHandler::getNorthCitiesAmount(std::multimap<double, std::string>& distanceMap, double currY) {
+size_t CitiesHandler::getNorthCitiesAmount(std::multimap<double, std::string>& distanceMap, double currX) {
 
 	return std::count_if(distanceMap.begin(), distanceMap.end(),
         [currY, this](const std::pair<double, std::string>& city) {
-        return m_dataKeyName.find(city.second)->second.y > currY;
+        return m_dataKeyName.find(city.second)->second.x > currX;
         	});
 
 }
